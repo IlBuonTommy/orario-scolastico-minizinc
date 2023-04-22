@@ -8,5 +8,5 @@
 - OGNI maestra con 22 ore ogni giorno fa almeno 2 ore (che sia mensa o lezione)
 - OGNI maestra ha 1 MATTINA LIBERA  e 2 POME liberi (UNO DI QUESTI è MERCOLEDì o GIOVEDì)
 - RELIGIONE DA DISPONIBILITà 2 giorni
-- INSERIRE possibilità di DIRE CHE IN ALCUNE ORE MEGLIO DI NO 
+- INSERIRE possibilità di DIRE CHE IN ALCUNE ORE/GIORNI MEGLIO DI NO 
 - MOTORIA MUSICA IMMAGINE INGLESE meglio il POMERIGGIO
