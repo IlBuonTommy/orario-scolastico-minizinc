@@ -40,22 +40,28 @@ array [1..3,1..5] of var listaMaterieNomi:OrarioLezioni;
 
 array [1..5] of var listaMaestreNomi:MensaOrario;
 
-array [1..5] of var int: oreMensaMaestre=[Maestra1:0,Maestra2:0,Maestra3:0,Maestra4:0,Maestra5:0];
-%output[show(listaMaterieOre[AssegnazioneMaterieMaestra[1,1]])];
-
-%forall(j in 1..NUM_MAESTRE, i in 1..2)(oreMensaMaestre[j]=oreMensaMaestre[j]+listaMaterieOre[AssegnazioneMaterieMaestra[j,i]]);
-
-%constraint (if AssegnazioneMaterieMaestra[1,1]==Italiano then MensaOrario[2]=Maestra2 endif);
-
-%controllo sulla somma delle ore deve essere uguale a quella definita a priori
-%constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]==1  then OrarioLezioni[3,1]==l \/ OrarioLezioni[3,2]==l \/OrarioLezioni[3,3]==l \/ OrarioLezioni[3,4]==l \/ OrarioLezioni[3,5]==l endif );
 
 
 
+
+
+%output[show(listaMaterieOre[AssegnazioneMaterieMaestra[1,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[1,2]])];
+
+
+
+
+%constraint sull'orario generale
 constraint forall(l in listaMaterieNomi)( sum( j in 1..3 , i in 1..5)(if OrarioLezioni[j,i]==l then 2 else 0 endif)==listaMaterieOre[l] );
 
+%constraint sulle preferenze il pomeriggio
 constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]==1  then  sum( i in 1..5)(if OrarioLezioni[3,i]==l then 2 else 0 endif)==listaMaterieOre[l] endif );
 
+
+%constraint per calcolare orario maestre solo lezioni
+constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOre[AssegnazioneMaterieMaestra[m,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,2]]);
+
+%constraint per calcolare la mensa delle maestre
+constraint forall(m in listaMaestreNomi)( sum(  i in 1..5)(if MensaOrario[i]==m then 2 else 0 endif)==listaMaestreOre[m]-oreMaestraSoloLezione[m]);
 
 
 %controllo sul venerdì e lunedì
