@@ -18,6 +18,8 @@ array [1..NUM_MAT] of var 0..1:listaMateriePomePreff=[Italiano:0, Matematica:0,G
 enum listaMaestreNomi={Maestra1,Maestra2,Maestra3,Maestra4,Maestra5};
 array [1..NUM_MAESTRE] of var int:riferimentoMaestre=[Maestra1:1,Maestra2:2,Maestra3:3,Maestra4:4,Maestra5:5];
 array [1..NUM_MAESTRE] of var int:listaMaestreOre=[Maestra1:12,Maestra2:8,Maestra3:2,Maestra4:10,Maestra5:8];
+array [1..NUM_MAESTRE] of var int:oreMaestraSoloLezione;
+
 
                                                     
                                                     
@@ -38,12 +40,22 @@ array [1..3,1..5] of var listaMaterieNomi:OrarioLezioni;
 
 array [1..5] of var listaMaestreNomi:MensaOrario;
 
-array [1..5] of var int: oreMensaMaestre;
+array [1..5] of var int: oreMensaMaestre=[Maestra1:0,Maestra2:0,Maestra3:0,Maestra4:0,Maestra5:0];
+%output[show(listaMaterieOre[AssegnazioneMaterieMaestra[1,1]])];
+
+%forall(j in 1..NUM_MAESTRE, i in 1..2)(oreMensaMaestre[j]=oreMensaMaestre[j]+listaMaterieOre[AssegnazioneMaterieMaestra[j,i]]);
+
+%constraint (if AssegnazioneMaterieMaestra[1,1]==Italiano then MensaOrario[2]=Maestra2 endif);
+
+%controllo sulla somma delle ore deve essere uguale a quella definita a priori
+%constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]==1  then OrarioLezioni[3,1]==l \/ OrarioLezioni[3,2]==l \/OrarioLezioni[3,3]==l \/ OrarioLezioni[3,4]==l \/ OrarioLezioni[3,5]==l endif );
 
 
 
-%controllo sulla somma delle ore
 constraint forall(l in listaMaterieNomi)( sum( j in 1..3 , i in 1..5)(if OrarioLezioni[j,i]==l then 2 else 0 endif)==listaMaterieOre[l] );
+
+constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]==1  then  sum( i in 1..5)(if OrarioLezioni[3,i]==l then 2 else 0 endif)==listaMaterieOre[l] endif );
+
 
 
 %controllo sul venerdì e lunedì
