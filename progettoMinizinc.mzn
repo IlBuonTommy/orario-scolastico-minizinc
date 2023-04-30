@@ -7,6 +7,8 @@ int: MAX_NUM_ORE_MAT=30;
 int: NUM_MAESTRE=5;
 int: MAX_NUM_ORE_MAESTRA=30;
 
+int: contatorePreferenza=0;
+
 enum giorni={Lunedi , Martedi , Mercoledi, Giovedi ,Venerdi};
 
 %%definizione del type MATERIA
@@ -36,6 +38,8 @@ array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra= 
 
 array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
 array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:1,Maestra5:0];
+array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[Maestra1:2,Maestra2:1,Maestra3:2,Maestra4:0,Maestra5:5];
+array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:0,Maestra5:3];
 
 
 
@@ -43,7 +47,6 @@ array [1..3,1..5] of var listaMaterieNomi:OrarioLezioni;
 array [1..3,1..5] of var listaMaestreNomi:OrarioLezioniMaestre;
 
 array [1..5] of var listaMaestreNomi:MensaOrario;
-
 
 
 
@@ -86,9 +89,22 @@ constraint forall(m in listaMaestreNomi)(sum(  i in 3..4)(if OrarioLezioniMaestr
 %constraint di non aver libero sia venerdì pomeriggio che lunedì mattina
 constraint forall(m in listaMaestreNomi)(if MensaOrario[5]!=m /\ OrarioLezioniMaestre[3,5]!=m then OrarioLezioniMaestre[1,1]==m \/ OrarioLezioniMaestre[2,1]==m \/ MensaOrario[1]==m endif );
 
+%incrementa la variabile contatore se la maestra in quel gionro libero va a scuola !!SOLO PER CHI NON TUTTI I GIORNI
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==0 then forall(j in 1..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+
+%controllo mensa
+constraint forall(m in listaMaestreNomi)( if MensaOrario[listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1 endif);
+
+%incremento la variabile per chi va tutti i giorni MATTINA
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\ listaMaestreMattinaOPomeriggioCasa[m]==1   then forall(j in 1..2 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\ listaMaestreMattinaOPomeriggioCasa[m]==3   then forall(j in 3..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+
+
 %controllo sul venerdì e lunedì
 %constraint forall(l in lezioni)(l in sett[4,:]);
 
 
 
-solve satisfy;
+
+solve minimize contatorePreferenza;
