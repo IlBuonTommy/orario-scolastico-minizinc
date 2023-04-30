@@ -17,7 +17,7 @@ array [1..NUM_MAT] of var 0..1:listaMateriePomePreff=[Italiano:0, Matematica:0,G
 
 %definzione del type MAESTRA
 enum listaMaestreNomi={Maestra1,Maestra2,Maestra3,Maestra4,Maestra5};
-array [1..NUM_MAESTRE] of var int:riferimentoMaestre=[Maestra1:1,Maestra2:2,Maestra3:3,Maestra4:4,Maestra5:5];
+
 array [1..NUM_MAESTRE] of var int:listaMaestreOre=[Maestra1:12,Maestra2:8,Maestra3:2,Maestra4:10,Maestra5:8];
 
 array [1..NUM_MAESTRE] of var int:oreMaestraSoloLezione;
@@ -35,7 +35,7 @@ array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra= 
                ]);
 
 array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
-array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
+array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:1,Maestra5:0];
 
 
 
@@ -67,8 +67,24 @@ constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOr
 %constraint per calcolare la mensa delle maestre
 constraint forall(m in listaMaestreNomi)( sum(  i in 1..5)(if MensaOrario[i]==m then 2 else 0 endif)==listaMaestreOre[m]-oreMaestraSoloLezione[m]);
 
-%constraint per 
+%constraint per orario con Meastre
 constraint forall(m in listaMaestreNomi)( forall(j in 1..3, i in 1..5)(if OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,1] \/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,2] then OrarioLezioniMaestre[j,i]=m endif ));
+
+%constraint per controllare che alcune ci siano tutti i giorni
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 then  sum(  i in 1..5)(if OrarioLezioniMaestre[1,i]==m \/ OrarioLezioniMaestre[2,i]==m \/ OrarioLezioniMaestre[3,i]==m \/ MensaOrario[i]==m  then 1 else 0 endif)==5 endif);
+
+%constraint per fare i riposi di almeno una mattina e 2 pome
+%CHIEDERE A MIA SORELLA SE MENSA CONTA
+constraint forall(m in listaMaestreNomi)(sum(  i in 1..5)(if OrarioLezioniMaestre[1,i]==m \/ OrarioLezioniMaestre[2,i]==m  \/ MensaOrario[i]==m  then 1 else 0 endif)<5);
+
+%constraint per i pomeriggi liberi
+constraint forall(m in listaMaestreNomi)(sum(  i in 1..5)(if OrarioLezioniMaestre[3,i]==m   \/ MensaOrario[i]==m  then 1 else 0 endif)<4);
+
+%constraint pomeriggio libero giovedì o mercoledì
+constraint forall(m in listaMaestreNomi)(sum(  i in 3..4)(if OrarioLezioniMaestre[3,i]==m   \/ MensaOrario[i]==m  then 1 else 0 endif)<2);
+
+%constraint di non aver libero sia venerdì pomeriggio che lunedì mattina
+constraint forall(m in listaMaestreNomi)(if MensaOrario[5]!=m /\ OrarioLezioniMaestre[3,5]!=m then OrarioLezioniMaestre[1,1]==m \/ OrarioLezioniMaestre[2,1]==m \/ MensaOrario[1]==m endif );
 
 %controllo sul venerdì e lunedì
 %constraint forall(l in lezioni)(l in sett[4,:]);
