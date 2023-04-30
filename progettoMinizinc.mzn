@@ -61,7 +61,7 @@ array [1..5] of var listaMaestreNomi:MensaOrario;
 constraint forall(l in listaMaterieNomi)( sum( j in 1..3 , i in 1..5)(if OrarioLezioni[j,i]==l then 2 else 0 endif)==listaMaterieOre[l] );
 
 %constraint sulle preferenze il pomeriggio
-constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]==1  then  sum( i in 1..5)(if OrarioLezioni[3,i]==l then 2 else 0 endif)==listaMaterieOre[l] endif );
+constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]=1  then  sum( i in 1..5)(if OrarioLezioni[3,i]=l then 2 else 0 endif)=listaMaterieOre[l] endif );
 
 
 %constraint per calcolare orario maestre solo lezioni
@@ -93,7 +93,7 @@ constraint forall(m in listaMaestreNomi)(if MensaOrario[5]!=m /\ OrarioLezioniMa
 constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==0 then forall(j in 1..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
 
 %controllo mensa
-constraint forall(m in listaMaestreNomi)( if MensaOrario[listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1 endif);
+constraint forall(m in listaMaestreNomi)( if MensaOrario[listaMaestreGiornoCasa[m]]=m then contatorePreferenza=contatorePreferenza+1 endif);
 
 %incremento la variabile per chi va tutti i giorni MATTINA
 constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\ listaMaestreMattinaOPomeriggioCasa[m]==1   then forall(j in 1..2 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
