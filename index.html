@@ -5,24 +5,42 @@
 
     <script>
         var modelCode = `
-            var X = array [1..3] of var int: X;
-            var Y = array [1..3] of var int: Y;
+        int: n=3;
+        var  1..n: SA;
+        var 1..n: Q;
+        var 1..n: NT;
+        var 1..n: T;
+        var 1..n: WA;
+        var 1..n: NSW;
+        var 1..n: V;
 
-            constraint X[1] + X[2] + X[3] = 10;
-            constraint Y[1] + Y[2] + Y[3] = 5;
-            constraint forall(i in 1..3)(X[i] <= Y[i]);
+        constraint WA != NT;
+        constraint WA != SA;
+        constraint NT != Q;
+        constraint NT != SA;
+        constraint Q != SA;
+        constraint Q != NSW;
+        constraint NSW != SA;
+        constraint NSW != V;
+        constraint V != SA;
 
-            var int: obj = sum(i in 1..3)(X[i]);
-
-            solve minimize obj;
-
-            output ["X: \(X)\nY: \(Y)\nobj: \(obj)"];
+        solve satisfy
         `;
   
-        var model = new MiniZinc.Model("myModel", modelCode);
+        const model = new MiniZinc.Model("myModel", modelCode);
   
-        model.solve().then(function(result) {
-            console.log(result); // stampa i risultati della soluzione
+        model.addFile('test.mzn', modelCode);
+        const solve = model.solve({
+          options: {
+            solver: 'gecode',
+            'all-solutions': false
+          }
+        });
+        solve.on('solution', solution => {
+          console.log(solution.output.json);
+        });
+        solve.then(result => {
+          console.log(result.status);
         });
     </script>
 
