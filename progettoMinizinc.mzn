@@ -1,6 +1,3 @@
-% Use this editor as a MiniZinc scratch book
-include "globals.mzn";
-
 int: NUM_MAT=8;
 int: MAX_NUM_ORE_MAT=30;
 
@@ -23,8 +20,6 @@ enum listaMaestreNomi={Maestra1,Maestra2,Maestra3,Maestra4,Maestra5};
 array [1..NUM_MAESTRE] of var int:listaMaestreOre=[Maestra1:12,Maestra2:8,Maestra3:2,Maestra4:10,Maestra5:8];
 
 array [1..NUM_MAESTRE] of var int:oreMaestraSoloLezione;
-
-
                                                     
                                                     
 array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra=    array2d(1..NUM_MAESTRE,1..2,
@@ -51,9 +46,7 @@ array [1..5] of var listaMaestreNomi:MensaOrario;
 
 
 
-
 %output[show(listaMaterieOre[AssegnazioneMaterieMaestra[1,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[1,2]])];
-
 
 
 
