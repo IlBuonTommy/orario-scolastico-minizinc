@@ -87,7 +87,7 @@ constraint forall(m in listaMaestreNomi)(sum(  i in 1..5)(if OrarioLezioniMaestr
 constraint forall(m in listaMaestreNomi)(sum(  i in 3..4)(if OrarioLezioniMaestre[3,i]==m   \\/ MensaOrario[i]==m  then 1 else 0 endif)<2);
 
 %constraint di non aver libero sia venerdì pomeriggio che lunedì mattina
-constraint forall(m in listaMaestreNomi)(if MensaOrario[5]!=m /\\\ OrarioLezioniMaestre[3,5]!=m then OrarioLezioniMaestre[1,1]==m \\/ OrarioLezioniMaestre[2,1]==m \\/ MensaOrario[1]==m endif );
+constraint forall(m in listaMaestreNomi)(if MensaOrario[5]!=m /\\ OrarioLezioniMaestre[3,5]!=m then OrarioLezioniMaestre[1,1]==m \\/ OrarioLezioniMaestre[2,1]==m \\/ MensaOrario[1]==m endif );
 
 %incrementa la variabile contatore se la maestra in quel gionro libero va a scuola !!SOLO PER CHI NON TUTTI I GIORNI
 constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==0 then forall(j in 1..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
@@ -96,7 +96,7 @@ constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==0 then fo
 constraint forall(m in listaMaestreNomi)( if MensaOrario[listaMaestreGiornoCasa[m]]=m then contatorePreferenza=contatorePreferenza+1 endif);
 
 %incremento la variabile per chi va tutti i giorni MATTINA
-constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\\\ listaMaestreMattinaOPomeriggioCasa[m]==1   then forall(j in 1..2 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\\ listaMaestreMattinaOPomeriggioCasa[m]==1   then forall(j in 1..2 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
 
 constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\\ listaMaestreMattinaOPomeriggioCasa[m]==3   then forall(j in 3..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
 
