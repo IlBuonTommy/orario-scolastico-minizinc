@@ -11,7 +11,7 @@ enum giorni={Lunedi , Martedi , Mercoledi, Giovedi ,Venerdi};
 %%definizione del type MATERIA
 enum listaMaterieNomi={Italiano, Matematica,Geografia ,Immagine,Religione,Inglese,Musica,Informatica,Empty};
 array [1..NUM_MAT+1] of var 0..MAX_NUM_ORE_MAT:listaMaterieOre=[Italiano:6, Matematica:6,Geografia:4 ,Immagine:2,Religione:2,Inglese:4,Musica:2,Informatica:4,Empty:0];
-array [1..NUM_MAT] of var 0..1:listaMateriePomePreff=[Italiano:0, Matematica:0,Geografia:0 ,Immagine:1,Religione:0,Inglese:0,Musica:1,Informatica:0];
+array [1..NUM_MAT+1] of var 0..1:listaMateriePomePreff=[Italiano:0, Matematica:0,Geografia:0 ,Immagine:1,Religione:0,Inglese:0,Musica:1,Informatica:0,Empty:0];
 
 
 %definzione del type MAESTRA
@@ -33,8 +33,8 @@ array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra= 
 
 array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
 array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:1,Maestra5:0];
-array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[Maestra1:2,Maestra2:1,Maestra3:2,Maestra4:0,Maestra5:5];
-array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:0,Maestra5:3];
+array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[Maestra1:2,Maestra2:1,Maestra3:2,Maestra4:2,Maestra5:5];
+array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:3,Maestra5:0];
 
 
 
