@@ -1,0 +1,97 @@
+<html>
+<head></head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/minizinc/dist/minizinc.js"></script>
+
+    <script>
+        var modelCode = `
+        int: NUM_MAT=8;
+int: MAX_NUM_ORE_MAT=30;
+
+int: NUM_MAESTRE=5;
+int: MAX_NUM_ORE_MAESTRA=30;
+
+int: contatorePreferenza=0;
+
+enum giorni={Lunedi , Martedi , Mercoledi, Giovedi ,Venerdi};
+
+%%definizione del type MATERIA
+enum listaMaterieNomi={Italiano, Matematica,Geografia ,Immagine,Religione,Inglese,Musica,Informatica,Empty};
+array [1..NUM_MAT+1] of var 0..MAX_NUM_ORE_MAT:listaMaterieOre=[Italiano:6, Matematica:6,Geografia:4 ,Immagine:2,Religione:2,Inglese:4,Musica:2,Informatica:4,Empty:0];
+array [1..NUM_MAT+1] of var 0..1:listaMateriePomePreff=[Italiano:0, Matematica:0,Geografia:0 ,Immagine:1,Religione:0,Inglese:0,Musica:1,Informatica:0,Empty:0];
+
+
+%definzione del type MAESTRA
+enum listaMaestreNomi={Maestra1,Maestra2,Maestra3,Maestra4,Maestra5};
+
+array [1..NUM_MAESTRE] of var int:listaMaestreOre=[Maestra1:12,Maestra2:8,Maestra3:2,Maestra4:10,Maestra5:8];
+
+array [1..NUM_MAESTRE] of var int:oreMaestraSoloLezione;
+                                                    
+                                                    
+array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra=    array2d(1..NUM_MAESTRE,1..2,
+               [
+                    Italiano,Geografia,
+                     Matematica,Empty,
+                     Religione,Empty,
+                    Immagine,Inglese,
+                    Informatica,Musica,
+               ]);
+
+array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
+array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:1,Maestra5:0];
+array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[Maestra1:2,Maestra2:1,Maestra3:2,Maestra4:2,Maestra5:5];
+array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:3,Maestra5:0];
+
+
+
+array [1..3,1..5] of var listaMaterieNomi:OrarioLezioni;
+array [1..3,1..5] of var listaMaestreNomi:OrarioLezioniMaestre;
+
+array [1..5] of var listaMaestreNomi:MensaOrario;
+
+
+
+
+%output[show(listaMaterieOre[AssegnazioneMaterieMaestra[1,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[1,2]])];
+
+
+
+%constraint sull'orario generale
+constraint forall(l in listaMaterieNomi)( sum( j in 1..3 , i in 1..5)(if OrarioLezioni[j,i]==l then 2 else 0 endif)==listaMaterieOre[l] );
+
+%constraint sulle preferenze il pomeriggio
+constraint forall(l in listaMaterieNomi)(if listaMateriePomePreff[l]=1  then  sum( i in 1..5)(if OrarioLezioni[3,i]=l then 2 else 0 endif)=listaMaterieOre[l] endif );
+
+
+%constraint per calcolare orario maestre solo lezioni
+constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOre[AssegnazioneMaterieMaestra[m,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,2]]);
+
+%constraint per calcolare la mensa delle maestre
+constraint forall(m in listaMaestreNomi)( sum(  i in 1..5)(if MensaOrario[i]==m then 2 else 0 endif)==listaMaestreOre[m]-oreMaestraSoloLezione[m]);
+
+constraint (OrarioLezioni[1,1]=Italiano /\\ OrarioLezioni[1,2]=Matematica);
+
+
+solve satisfy;
+        `;
+  
+        const model = new MiniZinc.Model("myModel", modelCode);
+  
+        model.addFile('prova.mzn', modelCode);
+        const solve = model.solve({
+          options: {
+            solver: 'gecode',
+            'all-solutions': false
+          }
+        });
+        solve.on('solution', solution => {
+          console.log(solution.output.json);
+        });
+        solve.then(result => {
+          console.log(result.status);
+        });
+    </script>
+
+</body>
+</html>
