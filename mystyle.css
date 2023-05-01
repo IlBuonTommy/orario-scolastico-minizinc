@@ -144,6 +144,28 @@ body{
     
   }
 
+  .animate-charcter
+  {
+    background-image: linear-gradient(
+      -225deg,
+      #0e619c 0%,
+      #0E9A9C 69%,
+      #650E9C 87%,
+      #9A9C0E 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    font-size: 3em;
+    text-align: center;
+  }
+
   .testoQuadro1{
     position: absolute;
     margin: auto;
@@ -183,5 +205,3 @@ body{
     padding-top: -1000px;
     text-shadow: 20px 20px 20px rgba(0, 0, 0, 0.959);
   }
-  
-  
