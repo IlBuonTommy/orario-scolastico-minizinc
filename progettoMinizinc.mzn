@@ -34,6 +34,7 @@ array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra= 
 array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
 array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:1,Maestra5:0];
 array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[Maestra1:2,Maestra2:1,Maestra3:2,Maestra4:2,Maestra5:5];
+array [1..NUM_MAESTRE] of var int: indiceArrayMaestra=[Maestra1:1,Maestra2:2,Maestra3:3,Maestra4:4,Maestra5:5];
 array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:3,Maestra5:0];
 
 
@@ -64,7 +65,7 @@ constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOr
 constraint forall(m in listaMaestreNomi)( sum(  i in 1..5)(if MensaOrario[i]==m then 2 else 0 endif)==listaMaestreOre[m]-oreMaestraSoloLezione[m]);
 
 %constraint per orario con Meastre
-constraint forall(m in listaMaestreNomi)( forall(j in 1..3, i in 1..5)(if OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,1] \/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,2] then OrarioLezioniMaestre[j,i]=m endif ));
+constraint forall(m in listaMaestreNomi)( forall(j in 1..3, i in 1..5)(if OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[indiceArrayMaestra[m],1] \/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[indiceArrayMaestra[m],2] then OrarioLezioniMaestre[j,i]=m endif ));
 
 %constraint per controllare che alcune ci siano tutti i giorni
 constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 then  sum(  i in 1..5)(if OrarioLezioniMaestre[1,i]==m \/ OrarioLezioniMaestre[2,i]==m \/ OrarioLezioniMaestre[3,i]==m \/ MensaOrario[i]==m  then 1 else 0 endif)==5 endif);
