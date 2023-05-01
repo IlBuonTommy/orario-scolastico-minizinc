@@ -70,16 +70,49 @@ constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOr
 %constraint per calcolare la mensa delle maestre
 constraint forall(m in listaMaestreNomi)( sum(  i in 1..5)(if MensaOrario[i]==m then 2 else 0 endif)==listaMaestreOre[m]-oreMaestraSoloLezione[m]);
 
-constraint (OrarioLezioni[1,1]=Italiano \\/ OrarioLezioni[1,2]=Matematica);
-
+%constraint per orario con Meastre
 constraint forall(m in listaMaestreNomi)( forall(j in 1..3, i in 1..5)(if OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,1] \\/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,2] then OrarioLezioniMaestre[j,i]=m endif ));
 
-solve satisfy;
+%constraint per controllare che alcune ci siano tutti i giorni
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 then  sum(  i in 1..5)(if OrarioLezioniMaestre[1,i]==m \\/ OrarioLezioniMaestre[2,i]==m \\/ OrarioLezioniMaestre[3,i]==m \\/ MensaOrario[i]==m  then 1 else 0 endif)==5 endif);
+
+%constraint per fare i riposi di almeno una mattina e 2 pome
+%CHIEDERE A MIA SORELLA SE MENSA CONTA
+constraint forall(m in listaMaestreNomi)(sum(  i in 1..5)(if OrarioLezioniMaestre[1,i]==m \\/ OrarioLezioniMaestre[2,i]==m  \\/ MensaOrario[i]==m  then 1 else 0 endif)<5);
+
+%constraint per i pomeriggi liberi
+constraint forall(m in listaMaestreNomi)(sum(  i in 1..5)(if OrarioLezioniMaestre[3,i]==m   \\/ MensaOrario[i]==m  then 1 else 0 endif)<4);
+
+%constraint pomeriggio libero giovedì o mercoledì
+constraint forall(m in listaMaestreNomi)(sum(  i in 3..4)(if OrarioLezioniMaestre[3,i]==m   \\/ MensaOrario[i]==m  then 1 else 0 endif)<2);
+
+%constraint di non aver libero sia venerdì pomeriggio che lunedì mattina
+constraint forall(m in listaMaestreNomi)(if MensaOrario[5]!=m /\\\ OrarioLezioniMaestre[3,5]!=m then OrarioLezioniMaestre[1,1]==m \\/ OrarioLezioniMaestre[2,1]==m \\/ MensaOrario[1]==m endif );
+
+%incrementa la variabile contatore se la maestra in quel gionro libero va a scuola !!SOLO PER CHI NON TUTTI I GIORNI
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==0 then forall(j in 1..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+
+%controllo mensa
+constraint forall(m in listaMaestreNomi)( if MensaOrario[listaMaestreGiornoCasa[m]]=m then contatorePreferenza=contatorePreferenza+1 endif);
+
+%incremento la variabile per chi va tutti i giorni MATTINA
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\\\ listaMaestreMattinaOPomeriggioCasa[m]==1   then forall(j in 1..2 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+
+constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 /\\ listaMaestreMattinaOPomeriggioCasa[m]==3   then forall(j in 3..3 )(if OrarioLezioniMaestre[j,listaMaestreGiornoCasa[m]]==m then contatorePreferenza=contatorePreferenza+1  endif) endif);
+
+
+%controllo sul venerdì e lunedì
+%constraint forall(l in lezioni)(l in sett[4,:]);
+
+
+
+
+solve minimize contatorePreferenza;
         `;
   
         const model = new MiniZinc.Model("myModel", modelCode);
   
-        model.addFile('prova.mzn', modelCode);
+        model.addFile('test.mzn', modelCode);
         const solve = model.solve({
           options: {
             solver: 'gecode',
