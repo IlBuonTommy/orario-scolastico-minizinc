@@ -2,15 +2,104 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="theme-color" content="#0E619C">
-  <title>Calendario scolastico</title>
-  <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
-  <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
-  <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
-  <link href="assets/img/favicon.png" rel="icon">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="theme-color" content="#0E619C">
+        <title>Calendario scolastico</title>
+        <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
+        <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
+        <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+        <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
+  <div id="titolo">
+    <h1 class="titoloOrario1">Orario </h1>
+    <h1 class="titoloOrario2">Generator </h1>
+</div>
+
+<div id="primo">
+    
+<div class="border">
+    
+        <div class="frame">
+            
+            <div class="image" style="background-image: url(http://res.cloudinary.com/lassediercks/image/upload/v1506437520/hannes-3_dszwui.jpg);trasnform:rotate(90);">
+            <div class="inserimentoTesto">  </div>
+            </div>
+        </div>
+</div>
+<div class="testoQuadro">
+    <h2 class="titoloOrarioLezioni">OrarioLezioni</h2>
+    <table class="tableorari">
+        <tr>
+          <th class=" vuoto"></th>
+          <th class="giorni">Lunedì</th>
+          <th class="giorni">Martedì</th>
+          <th class="giorni">Mercoledi</th>
+          <th class="giorni">Giovedi</th>
+          <th class="giorni">Venerdi</th>
+        </tr>
+        <tr>
+          <td class="orari">8:30-10:30</td>
+          <td id="lezioni1-1">Italiano</td>
+          <td id="lezioni1-2">Matematica</td>
+          <td id="lezioni1-3">Storia</td>
+          <td id="lezioni1-4">Italiano</td>
+          <td id="lezioni1-5"></td>
+        </tr>
+        <tr>
+          <td class="orari">10:30-12:30</td>
+          <td id="lezioni2-1"></td>
+          <td id="lezioni2-2"></td>
+          <td id="lezioni2-3"></td>
+          <td id="lezioni2-4"></td>
+          <td id="lezioni2-5"></td>
+        </tr>
+        <tr>
+          <td class="orari">14:30-16:30</td>
+          <td id="lezioni3-1"></td>
+          <td id="lezioni3-2"></td>
+          <td id="lezioni3-3"></td>
+          <td id="lezioni3-4">Immagine</td>
+          <td id="lezioni3-5"></td>
+        </tr>
+      </table>
+</div>
+</div>
+
+<div id="secondo">
+    
+    <div class="border1">
+        
+            <div class="frame1">
+                
+                <div class="image" style="background-image: url(http://res.cloudinary.com/lassediercks/image/upload/v1506437520/hannes-3_dszwui.jpg);trasnform:rotate(90);">
+                
+                </div>
+            </div>
+    </div>
+    <div class="testoQuadro1">
+        <h2 class="titoloOrarioMensa">OrarioMensa</h2>
+        <table class="tablemensa">
+            <tr>
+              <th>Lunedì</th>
+              <th>Martedì</th>
+              <th>Mercoledi</th>
+              <th>Giovedi</th>
+              <th>Venerdi</th>
+            </tr>
+            <tr>
+              <td id="mensa1">Profe1</td>
+              <td id="mensa2">Profe2</td>
+              <td id="mensa3">Profe3</td>
+              <td id="mensa4">Profe4</td>
+              <td id="mensa5">Profe5</td>
+            </tr>
+          </table>
+    </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/minizinc/dist/minizinc.js"></script>
 
     <script>
@@ -185,100 +274,7 @@
         });
     </script>
 
-    <div style="text-align: center;">
-   
-      <h2>Orari Mensa</h2>
-      <table style="border: #000 solid 2px; margin: auto; ">
-        <tr>
-          <th>Lunedì</th>
-          <th>Martedì</th>
-          <th>Mercoledi</th>
-          <th>Giovedi</th>
-          <th>Venerdi</th>
-        </tr>
-        <tr>
-          <td id="mensa1"></td>
-          <td id="mensa2"></td>
-          <td id="mensa3"></td>
-          <td id="mensa4"></td>
-          <td id="mensa5"></td>
-        </tr>
-      </table>
-
-
-      <h2>Orari Lezioni</h2>
-      <table style="border: #000 solid 2px; margin: auto; ">
-        <tr>
-          <th></th>
-          <th>Lunedì</th>
-          <th>Martedì</th>
-          <th>Mercoledi</th>
-          <th>Giovedi</th>
-          <th>Venerdi</th>
-        </tr>
-        <tr>
-          <td>8:30-10:30</td>
-          <td id="lezioni1-1"></td>
-          <td id="lezioni1-2"></td>
-          <td id="lezioni1-3"></td>
-          <td id="lezioni1-4"></td>
-          <td id="lezioni1-5"></td>
-        </tr>
-        <tr>
-          <td>10:30-12:30</td>
-          <td id="lezioni2-1"></td>
-          <td id="lezioni2-2"></td>
-          <td id="lezioni2-3"></td>
-          <td id="lezioni2-4"></td>
-          <td id="lezioni2-5"></td>
-        </tr>
-        <tr>
-          <td>14:30-16:30</td>
-          <td id="lezioni3-1"></td>
-          <td id="lezioni3-2"></td>
-          <td id="lezioni3-3"></td>
-          <td id="lezioni3-4"></td>
-          <td id="lezioni3-5"></td>
-        </tr>
-      </table>
-      <br>
-      <table style="border: #000 solid 2px; margin: auto; ">
-        <tr>
-          <th></th>
-          <th>Lunedì</th>
-          <th>Martedì</th>
-          <th>Mercoledi</th>
-          <th>Giovedi</th>
-          <th>Venerdi</th>
-        </tr>
-        <tr>
-          <td>8:30 - 10:30</td>
-          <td id="lezionimaestra1-1"></td>
-          <td id="lezionimaestra1-2"></td>
-          <td id="lezionimaestra1-3"></td>
-          <td id="lezionimaestra1-4"></td>
-          <td id="lezionimaestra1-5"></td>
-        </tr>
-        <tr>
-          <td>10:30 - 12:30</td>
-          <td id="lezionimaestra2-1"></td>
-          <td id="lezionimaestra2-2"></td>
-          <td id="lezionimaestra2-3"></td>
-          <td id="lezionimaestra2-4"></td>
-          <td id="lezionimaestra2-5"></td>
-        </tr>
-        <tr>
-          <td>14:30 - 16:30</td>
-          <td id="lezionimaestra3-1"></td>
-          <td id="lezionimaestra3-2"></td>
-          <td id="lezionimaestra3-3"></td>
-          <td id="lezionimaestra3-4"></td>
-          <td id="lezionimaestra3-5"></td>
-        </tr>
-      </table>
-
-
-  </div>
+    
 
 </body>
 </html>
