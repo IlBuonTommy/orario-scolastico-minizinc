@@ -205,3 +205,75 @@ body{
     padding-top: -1000px;
     text-shadow: 20px 20px 20px rgba(0, 0, 0, 0.959);
   }
+
+  .tablemensa{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+  }
+
+  .tablemensa th{
+    font-family: 'Roboto', sans-serif;
+    width: 80px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #0E9A9C;
+    
+  }
+  .tablemensa td{
+    font-family: 'Roboto', sans-serif;
+    width: 80px;
+    font-weight: 300;
+    text-align: center;
+    background-color: #c5e9ea;
+    
+  }
+  .tableorari{
+    margin-right : auto;
+    margin-left: auto;
+    margin-top: 30px;
+  }
+
+  .tableorari .giorni{
+    font-family: 'Roboto', sans-serif;
+    width: 80px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #0E9A9C;
+    
+  }
+  .tableorari td{
+    font-family: 'Roboto', sans-serif;
+    width: 80px;
+    height: 40px;
+    font-weight: 300;
+    text-align: center;
+    background-color: #c5e9ea;
+    
+  }
+
+  .tableorari .orari{
+    width: 100px;
+    background-color: #0E9A9C
+    ;
+  }
+  
+
+  h2{
+    font-family: 'Roboto', 'Times New Roman', Times, serif;
+    
+  }
+
+  .titoloOrarioLezioni{
+    font-size: 45px;
+    padding-top: 30px;
+  }
+
+  .titoloOrarioMensa{
+    font-size: 35px;
+  }
+
+ 
+
+  
