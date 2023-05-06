@@ -16,8 +16,8 @@
 <body>
   <!-- Inserisci il nome della classe  -->
   <form action="fase2.php" method="post">
-    <input type="text" name="classe" placeholder="nome classe">
-    <input type="number" name="classe" placeholder="numero maestre">
+    <input type="text" name="classe" placeholder="nome classe" required>
+    <input type="number" name="classe" placeholder="numero maestre" required>
     <!-- crea un bottone javascript che conta quante volte è stato premuto -->
     <div>
       <input type="button" value="Aggiungi materia" onclick="addMateria()">
@@ -46,6 +46,8 @@
       newInputPome.name = 'materiaPome'+counter;
       counter++;
       numMaterie.setAttribute("value", counter);
+      newInput.setAttribute("required", "true");
+      newInputOre.setAttribute("required", "true");
       newInputOre.setAttribute("min", "1");
       newInputOre.setAttribute("max", "30");
       newInput.placeholder = 'Nome materia';
