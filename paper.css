@@ -207,3 +207,9 @@ body {
 .pomeriggioLabel{
   margin-left: 20px;
 }
+
+.nomeClasseOut{
+  padding-top:80px ;
+ text-align: center;
+ font-size: 35px;
+}
