@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="paper.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Dp8jXa1z+KxSQezXp2NBBt5KfAvTvgJS6dpDvqodm8vwEGj4+2CE9QCH4OB8Nq6x" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <form action="fase2.php" method="post">
+            <div class="paper">
+                <div class="lines">
+                <div class="text" contenteditable spellcheck="false">
+                    <h2 class=" titolo1">Orario</h2>
+                    <h2 class=" titolo2">Generator</h2>
+                    <div class="divClasse">
+                        <b>Nome Classe </b>
+                        <input type="text" class="nomeClassetext" name="nomeClasse"  required>
+                    </div>
+
+                    <div class="divClasseNumeroMaestre">
+                        <b>Numero Maestre </b>
+                        <input type="number" class="numertoMaestretext" name="numeroMaestre"  required>
+                    </div>
+                    
+                </div>
+                </div>
+                <div class="holes hole-top"></div>
+                <div class="holes hole-middle"></div>
+                <div class="holes hole-bottom"></div>
+            </div>
+            
+            <div class="paper1">
+                <div class="lines">
+                <div class="text1" contenteditable spellcheck="false">
+                    <b>Inserisci Le Materie</b> <br>
+                    <div>
+                        <input type="button" class="addMateriaButton" value="+" onclick="addMateria()">
+                      </div>
+                      <div id="inputs-materie"></div>
+                      <input name="numeroMaterie" id="numeroMaterie" type="hidden" value="0">
+                      
+                      <input type="submit" class="next" value="Procedi">
+                    
+                   </div>
+                </div>
+                <div class="holes1 hole-top"></div>
+                <div class="holes1 hole-middle"></div>
+                <div class="holes1 hole-bottom"></div>
+            </div>
+
+            
+                
+                
+              </form>
+
+            
+        </div>
+
+        <script>
+            let counter = 0;
+            function addMateria() {
+              const inputsContainer = document.getElementById('inputs-materie');
+              const nuovoDiv = document.createElement('div');
+              const newInput = document.createElement('input');
+              const newInputOre = document.createElement('input');
+              const labelPome = document.createElement('label');
+              const newInputPome = document.createElement('input');
+              const numMaterie = document.getElementById("numeroMaterie");
+              nuovoDiv.classList.add("righeMaterie");
+              labelPome.textContent = 'Pomeriggio:';
+              labelPome.classList.add("pomeriggioLabel");
+              newInput.type = 'text';
+              newInputOre.type = 'number';
+              newInputPome.type = 'checkbox';
+              newInput.name = 'materia'+counter;
+              newInput.classList.add("nomeMateriain");
+              newInputOre.name = 'materiaOre'+counter;
+              newInputPome.name = 'materiaPome'+counter;
+              counter++;
+              numMaterie.setAttribute("value", counter);
+              newInput.setAttribute("required", "true");
+              newInputOre.setAttribute("required", "true");
+              newInputOre.setAttribute("min", "1");
+              newInputOre.setAttribute("max", "30");
+              newInput.placeholder = 'Nome materia';
+              newInputOre.placeholder = 'Ore settimanali';
+              inputsContainer.appendChild(nuovoDiv);
+              nuovoDiv.appendChild(newInput);
+              nuovoDiv.appendChild(newInputOre);
+              labelPome.appendChild(newInputPome);
+              nuovoDiv.appendChild(labelPome);
+            }
+          </script>
+    </body>
+</html>
