@@ -17,8 +17,18 @@ body {
     align-items: center;
     height: 100vh;
     
-    
 }
+
+.backPaper{
+  position: absolute;
+  width: 80%;
+  height: 650px;
+  background-color: rgba(36, 193, 180, 0);
+  border-radius: 10px;
+  top:50px;
+  left: 130px;
+}
+
 .paper {
   position: absolute;
   height: 550px;
@@ -212,4 +222,28 @@ body {
   padding-top:80px ;
  text-align: center;
  font-size: 35px;
+}
+
+.nomeMaestraIn{
+  text-align: center;
+  width: 150px;
+  margin: 5px;
+}
+
+.oreSettimanaliIn{
+  text-align: center;
+  width: 150px;
+  margin: 5px;
+}
+
+.selectGiornoLibero{
+  margin-right: 10px;
+}
+
+.mensaChoice{
+  margin-right: 5px;
+}
+
+.hidden{
+  display:none;
 }
