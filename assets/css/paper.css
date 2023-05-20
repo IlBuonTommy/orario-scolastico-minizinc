@@ -10,15 +10,16 @@ body {
   margin: 0;
   padding: 0;
   background: rgb(200, 200, 200);
-  ;
 }
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    
+    
+    width: 1500px;
+    height: 700px;
 }
 
 .backPaper {
