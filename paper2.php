@@ -18,7 +18,7 @@
 <body>
   <div class="container">
     <form action="paper3.php" method="POST">
-
+      <input name="passaggioSicuroFase3" id="passaggioSicuroFase3" type="hidden" value="2">
       <div class="paper">
         <div class="lines">
           <div class="text" contenteditable spellcheck="false">

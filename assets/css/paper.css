@@ -210,6 +210,21 @@ body {
   top: 0px;
 }
 
+.deleteMateriaButton {
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  /* Imposta l'altezza del bottone */
+  background: rgba(255, 0, 0, 0.4);
+
+  border: solid 1px #000;
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  right: 60px;
+  top: 0px;
+}
+
 .addMateriaButton:hover {
   background: rgba(206, 6, 6, 0.674);
   transition: 150ms;

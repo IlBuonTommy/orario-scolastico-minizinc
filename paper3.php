@@ -21,6 +21,13 @@
         <h1 class="titoloOrario2">Generator </h1>
     </div>
 
+    <?php
+    if (!isset($_POST['passaggioSicuroFase3'])) {
+        header("Location: index.html");
+    }else{
+        session_start();
+    }
+    ?>
     <div id="primo">
 
         <div class="border">
@@ -45,11 +52,11 @@
                 </tr>
                 <tr>
                     <td class="orari">8:30-10:30</td>
-                    <td id="lezioni1-1">Italiano</td>
-                    <td id="lezioni1-2">Matematica</td>
-                    <td id="lezioni1-3">Storia</td>
-                    <td id="lezioni1-4">Italiano</td>
-                    <td id="lezioni1-5"></td>
+                    <td id="lezioni1-1">Caricamento</td>
+                    <td id="lezioni1-2">in</td>
+                    <td id="lezioni1-3">corso</td>
+                    <td id="lezioni1-4">...</td>
+                    <td id="lezioni1-5">attendere</td>
                 </tr>
                 <tr>
                     <td class="orari">10:30-12:30</td>
@@ -64,7 +71,7 @@
                     <td id="lezioni3-1"></td>
                     <td id="lezioni3-2"></td>
                     <td id="lezioni3-3"></td>
-                    <td id="lezioni3-4">Immagine</td>
+                    <td id="lezioni3-4"></td>
                     <td id="lezioni3-5"></td>
                 </tr>
             </table>

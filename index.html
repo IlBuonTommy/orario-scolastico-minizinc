@@ -46,6 +46,7 @@
             <b>Inserisci Le Materie</b> <br>
             <div>
               <input type="button" class="addMateriaButton" value="+" onclick="addMateria()">
+              <input type="button" class="deleteMateriaButton" value="-" onclick="deleteMateria()">
             </div>
             <div id="inputs-materie"></div>
             <input name="numeroMaterie" id="numeroMaterie" type="hidden" value="0">
@@ -145,6 +146,16 @@
       nuovoDiv.appendChild(newInputOre);
       labelPome.appendChild(newInputPome);
       nuovoDiv.appendChild(labelPome);
+    }
+    function deleteMateria() {
+      const inputsContainer = document.getElementById('inputs-materie');
+      const righeMaterie = document.getElementsByClassName('righeMaterie');
+      const numMaterie = document.getElementById("numeroMaterie");
+      if (counter > 0) {
+        inputsContainer.removeChild(righeMaterie[counter - 1]);
+        counter--;
+      }
+      numMaterie.setAttribute("value", counter);
     }
   </script>
 </body>
