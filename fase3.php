@@ -25,7 +25,7 @@
     
         <div class="frame">
             
-            <div class="image" style="background-image: url(https://res.cloudinary.com/lassediercks/image/upload/v1506437520/hannes-3_dszwui.jpg);trasnform:rotate(90);">
+            <div class="image" >
             <div class="inserimentoTesto">  </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
         
             <div class="frame1">
                 
-                <div class="image" style="background-image: url(http://res.cloudinary.com/lassediercks/image/upload/v1506437520/hannes-3_dszwui.jpg);trasnform:rotate(90);">
+                <div class="image" >
                 
                 </div>
             </div>
@@ -128,13 +128,13 @@
         array [1..NUM_MAESTRE] of var int:oreMaestraSoloLezione;
                                                             
                                                             
-        array [1..NUM_MAESTRE,1..2] of var listaMaterieNomi:AssegnazioneMaterieMaestra=    array2d(1..NUM_MAESTRE,1..2,
+        array [1..NUM_MAESTRE,1..5] of var listaMaterieNomi:AssegnazioneMaterieMaestra=    array2d(1..NUM_MAESTRE,1..5,
                       [
-                            Italiano,Geografia,
-                            Matematica,Empty,
-                            Religione,Empty,
-                            Immagine,Inglese,
-                            Informatica,Musica,
+                            Italiano,Geografia,Empty,Empty,Empty,
+                            Matematica,Empty,Empty,Empty,Empty,
+                            Religione,Empty,Empty,Empty,Empty,
+                            Immagine,Inglese,Empty,Empty,Empty,
+                            Informatica,Musica,Empty,Empty,Empty,
                       ]);
 
         array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
@@ -164,13 +164,13 @@
 
 
         %constraint per calcolare orario maestre solo lezioni
-        constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOre[AssegnazioneMaterieMaestra[m,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,2]]);
+        constraint forall(m in listaMaestreNomi)(oreMaestraSoloLezione[m]=listaMaterieOre[AssegnazioneMaterieMaestra[m,1]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,2]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,3]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,5]]+listaMaterieOre[AssegnazioneMaterieMaestra[m,5]]);
 
         %constraint per calcolare la mensa delle maestre
         constraint forall(m in listaMaestreNomi)( sum(  i in 1..5)(if MensaOrario[i]==m then 2 else 0 endif)==listaMaestreOre[m]-oreMaestraSoloLezione[m]);
 
         %constraint per orario con Meastre
-        constraint forall(m in listaMaestreNomi)( forall(j in 1..3, i in 1..5)(if OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,1] \\/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,2] then OrarioLezioniMaestre[j,i]=m endif ));
+        constraint forall(m in listaMaestreNomi)( forall(j in 1..3, i in 1..5)(if OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,1] \\/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,2] \\/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,3] \\/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,4] \\/ OrarioLezioni[j,i]==AssegnazioneMaterieMaestra[m,5] then OrarioLezioniMaestre[j,i]=m endif ));
 
         %constraint per controllare che alcune ci siano tutti i giorni
         constraint forall(m in listaMaestreNomi)(if listaMaestreOgniGiorno[m]==1 then  sum(  i in 1..5)(if OrarioLezioniMaestre[1,i]==m \\/ OrarioLezioniMaestre[2,i]==m \\/ OrarioLezioniMaestre[3,i]==m \\/ MensaOrario[i]==m  then 1 else 0 endif)==5 endif);
@@ -215,10 +215,11 @@
         const solve = model.solve({
           options: {
             solver: 'gecode',
-            'all-solutions': false
+            'all-solutions': true
           }
         });
         solve.on('solution', solution => {
+          
           //console.log(solution.output.json);
           console.log(solution.output.json.OrarioLezioni[0][0].e);
           //setto valori mensa
@@ -250,6 +251,7 @@
 
           //setto valori Lezioni Maestra
           //riga 1
+          /*
           document.getElementById("lezionimaestra1-1").innerHTML=solution.output.json.OrarioLezioniMaestre[0][0].e;
           document.getElementById("lezionimaestra1-2").innerHTML=solution.output.json.OrarioLezioniMaestre[0][1].e;
           document.getElementById("lezionimaestra1-3").innerHTML=solution.output.json.OrarioLezioniMaestre[0][2].e;
@@ -267,7 +269,7 @@
           document.getElementById("lezionimaestra3-3").innerHTML=solution.output.json.OrarioLezioniMaestre[2][2].e;
           document.getElementById("lezionimaestra3-4").innerHTML=solution.output.json.OrarioLezioniMaestre[2][3].e;
           document.getElementById("lezionimaestra3-5").innerHTML=solution.output.json.OrarioLezioniMaestre[2][4].e;
-
+          */
         });
         solve.then(result => {
           console.log(result.status);
