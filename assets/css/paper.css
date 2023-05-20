@@ -1,0 +1,262 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+@font-face {
+  font-family: 'HandFont';
+  src: url('smile.woff') format('woff');
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: rgb(200, 200, 200);
+  ;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.backPaper {
+  position: absolute;
+  width: 80%;
+  height: 650px;
+  background-color: rgba(36, 193, 180, 0);
+  border-radius: 10px;
+  top: 50px;
+  left: 130px;
+}
+
+.paper {
+  position: absolute;
+  height: 550px;
+  width: 450px;
+  background: rgba(255, 255, 255, 0.9);
+  margin: -275px -225px;
+  left: 35%;
+  top: 50%;
+  box-shadow: 0px 0px 5px 0px #888;
+
+}
+
+
+.titolo1 {
+  font-family: 'HandFont', sans-serif;
+  font-size: 100px;
+  color: black;
+  transform: rotate(-20deg);
+  top: -50px;
+  left: 20px;
+  position: relative;
+
+}
+
+.titolo2 {
+  font-family: 'HandFont', sans-serif;
+  font-size: 100px;
+  color: black;
+  transform: rotate(-20deg);
+  top: -50px;
+  left: 60px;
+  position: relative;
+
+}
+
+.nomeClassetext {
+  text-align: center;
+  font-family: 'Indie Flower';
+  font-weight: 700;
+}
+
+.divClasse {
+  position: relative;
+  left: 70px;
+}
+
+.divClasseNumeroMaestre {
+  position: relative;
+  margin-top: 25px;
+  left: 75px;
+}
+
+.numertoMaestretext {
+  text-align: center;
+
+  font-weight: 700;
+  width: 60px;
+
+}
+
+.paper1 {
+  position: absolute;
+  height: 550px;
+  width: 450px;
+  background: rgba(255, 255, 255, 0.9);
+  margin: -275px -225px;
+  left: 64%;
+  display: inline-block;
+  top: 50%;
+  box-shadow: 0px 0px 5px 0px #888;
+
+}
+
+.paper::before {
+  content: '';
+  position: absolute;
+  right: 45px;
+  height: 100%;
+  width: 2px;
+  background: rgba(255, 0, 0, 0.4);
+}
+
+.paper1::before {
+  content: '';
+  position: absolute;
+  left: 45px;
+  height: 100%;
+  width: 2px;
+  background: rgba(255, 0, 0, 0.4);
+
+}
+
+.lines {
+  margin-top: 40px;
+  height: calc(100% - 40px);
+  width: 100%;
+  background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+}
+
+.text {
+  position: absolute;
+  top: 65px;
+  right: 55px;
+  bottom: 10px;
+  left: 10px;
+  line-height: 25px;
+  font-family: 'Indie Flower';
+  overflow: hidden;
+  outline: none;
+}
+
+.text1 {
+  position: absolute;
+  top: 65px;
+  left: 55px;
+  bottom: 10px;
+  right: 10px;
+  line-height: 25px;
+  font-family: 'Indie Flower';
+  overflow: auto;
+  outline: none;
+}
+
+.holes {
+  position: absolute;
+  right: 10px;
+  height: 25px;
+  width: 25px;
+  background: lightgoldenrodyellow;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 2px 0px #888;
+}
+
+.holes1 {
+  position: absolute;
+  left: 10px;
+  height: 25px;
+  width: 25px;
+  background: lightgoldenrodyellow;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 2px 0px #888;
+}
+
+.hole-top {
+  top: 10%;
+}
+
+.hole-middle {
+  top: 50%;
+}
+
+.hole-bottom {
+  bottom: 10%;
+}
+
+
+.nomeMateriain {
+  text-align: center;
+  width: 100px;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+.addMateriaButton {
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  /* Imposta l'altezza del bottone */
+  background: rgba(255, 0, 0, 0.4);
+
+  border: solid 1px #000;
+  color: #000;
+  font-size: 20px;
+  position: absolute;
+  right: 30px;
+  top: 0px;
+}
+
+.addMateriaButton:hover {
+  background: rgba(206, 6, 6, 0.674);
+  transition: 150ms;
+}
+
+.next {
+  background: rgba(255, 0, 0, 0.4);
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5px;
+}
+
+.righeMaterie {
+  margin-top: 9px;
+
+  position: relative;
+}
+
+.pomeriggioLabel {
+  margin-left: 20px;
+}
+
+.nomeClasseOut {
+  padding-top: 80px;
+  text-align: center;
+  font-size: 35px;
+}
+
+.nomeMaestraIn {
+  text-align: center;
+  width: 150px;
+  margin: 5px;
+}
+
+.oreSettimanaliIn {
+  text-align: center;
+  width: 150px;
+  margin: 5px;
+}
+
+.selectGiornoLibero {
+  margin-right: 10px;
+}
+
+.mensaChoice {
+  margin-right: 5px;
+}
+
+.hidden {
+  display: none;
+}

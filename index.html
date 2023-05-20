@@ -1,32 +1,117 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta name="theme-color" content="#0E619C">
-        <title>Calendario scolastico</title>
-        <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
-        <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
-        <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
-        <link href="assets/img/favicon.png" rel="icon">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
-        <link rel="stylesheet" href="mystyle.css">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="theme-color" content="#0E619C">
+  <title>Calendario scolastico</title>
+  <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
+  <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
+  <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link rel="stylesheet" href="assets/css/draw.css">
+  <link rel="stylesheet" href="assets/css/paper.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Dp8jXa1z+KxSQezXp2NBBt5KfAvTvgJS6dpDvqodm8vwEGj4+2CE9QCH4OB8Nq6x" crossorigin="anonymous">
 </head>
+
 <body>
-  <!-- Inserisci il nome della classe  -->
-  <form action="fase2.php" method="post">
-    <input type="text" name="nomeClasse" placeholder="nome classe" required>
-    <input type="number" name="numeroMaestre" placeholder="numero maestre" required>
-    <!-- crea un bottone javascript che conta quante volte è stato premuto -->
-    <div>
-      <input type="button" value="Aggiungi materia" onclick="addMateria()">
-    </div>
-    <div id="inputs-materie"></div>
-    <input name="numeroMaterie" id="numeroMaterie" type="hidden" value="0">
-    
-    <input type="submit" value="Procedi">
+  <div class="container">
+    <form action="paper2.php" method="post">
+      <div class="paper">
+        <div class="lines">
+          <div class="text" contenteditable spellcheck="false">
+            <h2 class=" titolo1">Orario</h2>
+            <h2 class=" titolo2">Generator</h2>
+            <div class="divClasse">
+              <b>Nome Classe </b>
+              <input type="text" class="nomeClassetext" name="nomeClasse" required>
+            </div>
+
+            <div class="divClasseNumeroMaestre">
+              <b>Numero Maestre </b>
+              <input type="number" class="numertoMaestretext" name="numeroMaestre" required>
+            </div>
+
+          </div>
+        </div>
+        <div class="holes hole-top"></div>
+        <div class="holes hole-middle"></div>
+        <div class="holes hole-bottom"></div>
+      </div>
+
+      <div class="paper1">
+        <div class="lines">
+          <div class="text1" contenteditable spellcheck="false">
+            <b>Inserisci Le Materie</b> <br>
+            <div>
+              <input type="button" class="addMateriaButton" value="+" onclick="addMateria()">
+            </div>
+            <div id="inputs-materie"></div>
+            <input name="numeroMaterie" id="numeroMaterie" type="hidden" value="0">
+
+            <input type="submit" class="next" value="Procedi">
+
+          </div>
+        </div>
+        <div class="holes1 hole-top"></div>
+        <div class="holes1 hole-middle"></div>
+        <div class="holes1 hole-bottom"></div>
+      </div>
+  </div>
+  </div>
   </form>
+
+  <div class="pa diary hover">
+    <div class="main">
+      <div class="cover">
+        <div class="pa less"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pa pencil hover">
+    <div class="pa pencil-bottom"></div>
+    <div class="pencil-nip">
+      <div class="pencil-tip"></div>
+    </div>
+  </div>
+
+  <div class="pa mug hover">
+    <div class="pr mug_head">
+      <div class="pa coffee"></div>
+      <div class="pa ear"></div>
+    </div>
+  </div>
+
+  <div class="pa notes hover">
+    <div class="note pr"></div>
+  </div>
+
+  <div class="pa pen hover">
+    <div class="pen-nip">
+      <div class="pen-tip"></div>
+    </div>
+    <div class="pa pen-bottom"></div>
+  </div>
+
+  <div class="pa handwatch hover">
+    <div class="pr">
+      <div class="belt"></div>
+      <div class="pa dial">
+        <div class="pa sun-hand"></div>
+        <div class="pa hand1"></div>
+        <div class="pa hand2"></div>
+        <div class="pa button1"></div>
+        <div class="pa button2"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
   <script>
     let counter = 0;
     function addMateria() {
@@ -37,13 +122,16 @@
       const labelPome = document.createElement('label');
       const newInputPome = document.createElement('input');
       const numMaterie = document.getElementById("numeroMaterie");
-      labelPome.textContent = 'Preferenza pomeriggio:';
+      nuovoDiv.classList.add("righeMaterie");
+      labelPome.textContent = 'Pomeriggio:';
+      labelPome.classList.add("pomeriggioLabel");
       newInput.type = 'text';
       newInputOre.type = 'number';
       newInputPome.type = 'checkbox';
-      newInput.name = 'materia'+counter;
-      newInputOre.name = 'materiaOre'+counter;
-      newInputPome.name = 'materiaPome'+counter;
+      newInput.name = 'materia' + counter;
+      newInput.classList.add("nomeMateriain");
+      newInputOre.name = 'materiaOre' + counter;
+      newInputPome.name = 'materiaPome' + counter;
       counter++;
       numMaterie.setAttribute("value", counter);
       newInput.setAttribute("required", "true");
@@ -60,4 +148,5 @@
     }
   </script>
 </body>
+
 </html>

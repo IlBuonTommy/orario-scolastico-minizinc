@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta name="theme-color" content="#0E619C">
-        <title>Calendario scolastico</title>
-        <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
-        <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
-        <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
-        <link href="assets/img/favicon.png" rel="icon">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="theme-color" content="#0E619C">
+  <title>Calendario scolastico</title>
+  <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
+  <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
+  <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-        <link rel="stylesheet" href="mystyle.css">
+  <link rel="stylesheet" href="mystyle.css">
 </head>
+
 <body>
   <div id="titolo">
     <h1 class="titoloOrario1">Orario </h1>
     <h1 class="titoloOrario2">Generator </h1>
-</div>
+  </div>
 
-<div id="primo">
-    
-<div class="border">
-    
-        <div class="frame">
-            
-            <div class="image" >
-            <div class="inserimentoTesto">  </div>
-            </div>
+  <div id="primo">
+
+    <div class="border">
+
+      <div class="frame">
+
+        <div class="image">
+          <div class="inserimentoTesto"> </div>
         </div>
-</div>
-<div class="testoQuadro">
-    <h2 class="titoloOrarioLezioni">OrarioLezioni</h2>
-    <table class="tableorari">
+      </div>
+    </div>
+    <div class="testoQuadro">
+      <h2 class="titoloOrarioLezioni">OrarioLezioni</h2>
+      <table class="tableorari">
         <tr>
           <th class=" vuoto"></th>
           <th class="giorni">Lunedì</th>
@@ -66,44 +68,44 @@
           <td id="lezioni3-5"></td>
         </tr>
       </table>
-</div>
-</div>
+    </div>
+  </div>
 
-<div id="secondo">
-    
+  <div id="secondo">
+
     <div class="border1">
-        
-            <div class="frame1">
-                
-                <div class="image" >
-                
-                </div>
-            </div>
+
+      <div class="frame1">
+
+        <div class="image">
+
+        </div>
+      </div>
     </div>
     <div class="testoQuadro1">
-        <h2 class="titoloOrarioMensa">OrarioMensa</h2>
-        <table class="tablemensa">
-            <tr>
-              <th>Lunedì</th>
-              <th>Martedì</th>
-              <th>Mercoledi</th>
-              <th>Giovedi</th>
-              <th>Venerdi</th>
-            </tr>
-            <tr>
-              <td id="mensa1">Profe1</td>
-              <td id="mensa2">Profe2</td>
-              <td id="mensa3">Profe3</td>
-              <td id="mensa4">Profe4</td>
-              <td id="mensa5">Profe5</td>
-            </tr>
-          </table>
+      <h2 class="titoloOrarioMensa">OrarioMensa</h2>
+      <table class="tablemensa">
+        <tr>
+          <th>Lunedì</th>
+          <th>Martedì</th>
+          <th>Mercoledi</th>
+          <th>Giovedi</th>
+          <th>Venerdi</th>
+        </tr>
+        <tr>
+          <td id="mensa1">Profe1</td>
+          <td id="mensa2">Profe2</td>
+          <td id="mensa3">Profe3</td>
+          <td id="mensa4">Profe4</td>
+          <td id="mensa5">Profe5</td>
+        </tr>
+      </table>
     </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/minizinc/dist/minizinc.js"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/minizinc/dist/minizinc.js"></script>
 
-    <script>
-        var modelCode = `
+  <script>
+    var modelCode = `
         int: NUM_MAT=8;
         int: MAX_NUM_ORE_MAT=30;
 
@@ -208,75 +210,76 @@
 
         solve minimize contatorePreferenza;
         `;
-  
-        const model = new MiniZinc.Model("myModel", modelCode);
-  
-        model.addFile('test.mzn', modelCode);
-        const solve = model.solve({
-          options: {
-            solver: 'gecode',
-            'all-solutions': true
-          }
-        });
-        solve.on('solution', solution => {
-          
-          //console.log(solution.output.json);
-          console.log(solution.output.json.OrarioLezioni[0][0].e);
-          //setto valori mensa
-          document.getElementById("mensa1").innerHTML=solution.output.json.MensaOrario[0].e;
-          document.getElementById("mensa2").innerHTML=solution.output.json.MensaOrario[1].e;
-          document.getElementById("mensa3").innerHTML=solution.output.json.MensaOrario[2].e;
-          document.getElementById("mensa4").innerHTML=solution.output.json.MensaOrario[3].e;
-          document.getElementById("mensa5").innerHTML=solution.output.json.MensaOrario[4].e;
 
-          //setto valori Lezioni
-          //riga 1
-          document.getElementById("lezioni1-1").innerHTML=solution.output.json.OrarioLezioni[0][0].e;
-          document.getElementById("lezioni1-2").innerHTML=solution.output.json.OrarioLezioni[0][1].e;
-          document.getElementById("lezioni1-3").innerHTML=solution.output.json.OrarioLezioni[0][2].e;
-          document.getElementById("lezioni1-4").innerHTML=solution.output.json.OrarioLezioni[0][3].e;
-          document.getElementById("lezioni1-5").innerHTML=solution.output.json.OrarioLezioni[0][4].e;
-          //riga 2
-          document.getElementById("lezioni2-1").innerHTML=solution.output.json.OrarioLezioni[1][0].e;
-          document.getElementById("lezioni2-2").innerHTML=solution.output.json.OrarioLezioni[1][1].e;
-          document.getElementById("lezioni2-3").innerHTML=solution.output.json.OrarioLezioni[1][2].e;
-          document.getElementById("lezioni2-4").innerHTML=solution.output.json.OrarioLezioni[1][3].e;
-          document.getElementById("lezioni2-5").innerHTML=solution.output.json.OrarioLezioni[1][4].e;
-          //riga 3
-          document.getElementById("lezioni3-1").innerHTML=solution.output.json.OrarioLezioni[2][0].e;
-          document.getElementById("lezioni3-2").innerHTML=solution.output.json.OrarioLezioni[2][1].e;
-          document.getElementById("lezioni3-3").innerHTML=solution.output.json.OrarioLezioni[2][2].e;
-          document.getElementById("lezioni3-4").innerHTML=solution.output.json.OrarioLezioni[2][3].e;
-          document.getElementById("lezioni3-5").innerHTML=solution.output.json.OrarioLezioni[2][4].e;
+    const model = new MiniZinc.Model("myModel", modelCode);
 
-          //setto valori Lezioni Maestra
-          //riga 1
-          /*
-          document.getElementById("lezionimaestra1-1").innerHTML=solution.output.json.OrarioLezioniMaestre[0][0].e;
-          document.getElementById("lezionimaestra1-2").innerHTML=solution.output.json.OrarioLezioniMaestre[0][1].e;
-          document.getElementById("lezionimaestra1-3").innerHTML=solution.output.json.OrarioLezioniMaestre[0][2].e;
-          document.getElementById("lezionimaestra1-4").innerHTML=solution.output.json.OrarioLezioniMaestre[0][3].e;
-          document.getElementById("lezionimaestra1-5").innerHTML=solution.output.json.OrarioLezioniMaestre[0][4].e;
-          //riga 2
-          document.getElementById("lezionimaestra2-1").innerHTML=solution.output.json.OrarioLezioniMaestre[1][0].e;
-          document.getElementById("lezionimaestra2-2").innerHTML=solution.output.json.OrarioLezioniMaestre[1][1].e;
-          document.getElementById("lezionimaestra2-3").innerHTML=solution.output.json.OrarioLezioniMaestre[1][2].e;
-          document.getElementById("lezionimaestra2-4").innerHTML=solution.output.json.OrarioLezioniMaestre[1][3].e;
-          document.getElementById("lezionimaestra2-5").innerHTML=solution.output.json.OrarioLezioniMaestre[1][4].e;
-          //riga 3
-          document.getElementById("lezionimaestra3-1").innerHTML=solution.output.json.OrarioLezioniMaestre[2][0].e;
-          document.getElementById("lezionimaestra3-2").innerHTML=solution.output.json.OrarioLezioniMaestre[2][1].e;
-          document.getElementById("lezionimaestra3-3").innerHTML=solution.output.json.OrarioLezioniMaestre[2][2].e;
-          document.getElementById("lezionimaestra3-4").innerHTML=solution.output.json.OrarioLezioniMaestre[2][3].e;
-          document.getElementById("lezionimaestra3-5").innerHTML=solution.output.json.OrarioLezioniMaestre[2][4].e;
-          */
-        });
-        solve.then(result => {
-          console.log(result.status);
-        });
-    </script>
+    model.addFile('test.mzn', modelCode);
+    const solve = model.solve({
+      options: {
+        solver: 'gecode',
+        'all-solutions': true
+      }
+    });
+    solve.on('solution', solution => {
 
-    
+      //console.log(solution.output.json);
+      console.log(solution.output.json.OrarioLezioni[0][0].e);
+      //setto valori mensa
+      document.getElementById("mensa1").innerHTML = solution.output.json.MensaOrario[0].e;
+      document.getElementById("mensa2").innerHTML = solution.output.json.MensaOrario[1].e;
+      document.getElementById("mensa3").innerHTML = solution.output.json.MensaOrario[2].e;
+      document.getElementById("mensa4").innerHTML = solution.output.json.MensaOrario[3].e;
+      document.getElementById("mensa5").innerHTML = solution.output.json.MensaOrario[4].e;
+
+      //setto valori Lezioni
+      //riga 1
+      document.getElementById("lezioni1-1").innerHTML = solution.output.json.OrarioLezioni[0][0].e;
+      document.getElementById("lezioni1-2").innerHTML = solution.output.json.OrarioLezioni[0][1].e;
+      document.getElementById("lezioni1-3").innerHTML = solution.output.json.OrarioLezioni[0][2].e;
+      document.getElementById("lezioni1-4").innerHTML = solution.output.json.OrarioLezioni[0][3].e;
+      document.getElementById("lezioni1-5").innerHTML = solution.output.json.OrarioLezioni[0][4].e;
+      //riga 2
+      document.getElementById("lezioni2-1").innerHTML = solution.output.json.OrarioLezioni[1][0].e;
+      document.getElementById("lezioni2-2").innerHTML = solution.output.json.OrarioLezioni[1][1].e;
+      document.getElementById("lezioni2-3").innerHTML = solution.output.json.OrarioLezioni[1][2].e;
+      document.getElementById("lezioni2-4").innerHTML = solution.output.json.OrarioLezioni[1][3].e;
+      document.getElementById("lezioni2-5").innerHTML = solution.output.json.OrarioLezioni[1][4].e;
+      //riga 3
+      document.getElementById("lezioni3-1").innerHTML = solution.output.json.OrarioLezioni[2][0].e;
+      document.getElementById("lezioni3-2").innerHTML = solution.output.json.OrarioLezioni[2][1].e;
+      document.getElementById("lezioni3-3").innerHTML = solution.output.json.OrarioLezioni[2][2].e;
+      document.getElementById("lezioni3-4").innerHTML = solution.output.json.OrarioLezioni[2][3].e;
+      document.getElementById("lezioni3-5").innerHTML = solution.output.json.OrarioLezioni[2][4].e;
+
+      //setto valori Lezioni Maestra
+      //riga 1
+      /*
+      document.getElementById("lezionimaestra1-1").innerHTML=solution.output.json.OrarioLezioniMaestre[0][0].e;
+      document.getElementById("lezionimaestra1-2").innerHTML=solution.output.json.OrarioLezioniMaestre[0][1].e;
+      document.getElementById("lezionimaestra1-3").innerHTML=solution.output.json.OrarioLezioniMaestre[0][2].e;
+      document.getElementById("lezionimaestra1-4").innerHTML=solution.output.json.OrarioLezioniMaestre[0][3].e;
+      document.getElementById("lezionimaestra1-5").innerHTML=solution.output.json.OrarioLezioniMaestre[0][4].e;
+      //riga 2
+      document.getElementById("lezionimaestra2-1").innerHTML=solution.output.json.OrarioLezioniMaestre[1][0].e;
+      document.getElementById("lezionimaestra2-2").innerHTML=solution.output.json.OrarioLezioniMaestre[1][1].e;
+      document.getElementById("lezionimaestra2-3").innerHTML=solution.output.json.OrarioLezioniMaestre[1][2].e;
+      document.getElementById("lezionimaestra2-4").innerHTML=solution.output.json.OrarioLezioniMaestre[1][3].e;
+      document.getElementById("lezionimaestra2-5").innerHTML=solution.output.json.OrarioLezioniMaestre[1][4].e;
+      //riga 3
+      document.getElementById("lezionimaestra3-1").innerHTML=solution.output.json.OrarioLezioniMaestre[2][0].e;
+      document.getElementById("lezionimaestra3-2").innerHTML=solution.output.json.OrarioLezioniMaestre[2][1].e;
+      document.getElementById("lezionimaestra3-3").innerHTML=solution.output.json.OrarioLezioniMaestre[2][2].e;
+      document.getElementById("lezionimaestra3-4").innerHTML=solution.output.json.OrarioLezioniMaestre[2][3].e;
+      document.getElementById("lezionimaestra3-5").innerHTML=solution.output.json.OrarioLezioniMaestre[2][4].e;
+      */
+    });
+    solve.then(result => {
+      console.log(result.status);
+    });
+  </script>
+
+
 
 </body>
+
 </html>

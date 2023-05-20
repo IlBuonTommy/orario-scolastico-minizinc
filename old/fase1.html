@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="theme-color" content="#0E619C">
+  <title>Calendario scolastico</title>
+  <meta name="author" content="Biolghini Paolo, Bianchin Tommaso">
+  <meta content="orario, scuola, scolastico, orariofacile, timetable, lezioni" name="keywords">
+  <meta content="L'intelligenza artificiale che ti aiuta a creare l'orario per la tua scuola" name="description">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <link rel="stylesheet" href="mystyle.css">
+</head>
+
+<body>
+  <!-- Inserisci il nome della classe  -->
+  <form action="fase2.php" method="post">
+    <input type="text" name="nomeClasse" placeholder="nome classe" required>
+    <input type="number" name="numeroMaestre" placeholder="numero maestre" required>
+    <!-- crea un bottone javascript che conta quante volte è stato premuto -->
+    <div>
+      <input type="button" value="Aggiungi materia" onclick="addMateria()">
+    </div>
+    <div id="inputs-materie"></div>
+    <input name="numeroMaterie" id="numeroMaterie" type="hidden" value="0">
+
+    <input type="submit" value="Procedi">
+  </form>
+  <script>
+    let counter = 0;
+    function addMateria() {
+      const inputsContainer = document.getElementById('inputs-materie');
+      const nuovoDiv = document.createElement('div');
+      const newInput = document.createElement('input');
+      const newInputOre = document.createElement('input');
+      const labelPome = document.createElement('label');
+      const newInputPome = document.createElement('input');
+      const numMaterie = document.getElementById("numeroMaterie");
+      labelPome.textContent = 'Preferenza pomeriggio:';
+      newInput.type = 'text';
+      newInputOre.type = 'number';
+      newInputPome.type = 'checkbox';
+      newInput.name = 'materia' + counter;
+      newInputOre.name = 'materiaOre' + counter;
+      newInputPome.name = 'materiaPome' + counter;
+      counter++;
+      numMaterie.setAttribute("value", counter);
+      newInput.setAttribute("required", "true");
+      newInputOre.setAttribute("required", "true");
+      newInputOre.setAttribute("min", "1");
+      newInputOre.setAttribute("max", "30");
+      newInput.placeholder = 'Nome materia';
+      newInputOre.placeholder = 'Ore settimanali';
+      inputsContainer.appendChild(nuovoDiv);
+      nuovoDiv.appendChild(newInput);
+      nuovoDiv.appendChild(newInputOre);
+      labelPome.appendChild(newInputPome);
+      nuovoDiv.appendChild(labelPome);
+    }
+  </script>
+</body>
+
+</html>
