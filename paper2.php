@@ -12,7 +12,7 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link rel="stylesheet" href="assets/css/draw.css">
   <link rel="stylesheet" href="assets/css/paper.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Dp8jXa1z+KxSQezXp2NBBt5KfAvTvgJS6dpDvqodm8vwEGj4+2CE9QCH4OB8Nq6x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
 
 <body>
