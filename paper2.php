@@ -50,7 +50,7 @@
                   echo '<input type="number" class="oreSettimanaliIn" name="oreMaestra' . $j . '" placeholder="ore settimanali" min="1" required>';
                   echo '<div class="gLibero">';
                   echo '<label for="giornoLibero">Giorno libero:</label>
-                        <select id="giornoLibero" class="selectGiornoLibero" name="giornoLibero">
+                        <select id="giornoLibero" class="selectGiornoLibero" name="giornoLibero' . $j . '">
                         <option value="1">Lunedì</option>
                         <option value="2">Martedì</option>
                         <option value="3">Mercoledì</option>

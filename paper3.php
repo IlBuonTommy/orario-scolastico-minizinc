@@ -116,7 +116,7 @@
         int: NUM_MAT=<?php echo $_SESSION["numeroMaterie"]; ?>;
         int: MAX_NUM_ORE_MAT=30;
 
-        int: NUM_MAESTRE=<?php echo $_SESSION["numeroMaestre"]; ?>
+        int: NUM_MAESTRE=<?php echo $_SESSION["numeroMaestre"]; ?>;
         int: MAX_NUM_ORE_MAESTRA=30;
 
         int: contatorePreferenza=0;
@@ -153,25 +153,74 @@
 
 
         %definzione del type MAESTRA
-        enum listaMaestreNomi={Maestra1,Maestra2,Maestra3,Maestra4,Maestra5};
+        enum listaMaestreNomi={<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                    echo $_POST["nomeMaestra$i"];
+                                    if ($i != $_SESSION["numeroMaestre"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>};
 
-        array [1..NUM_MAESTRE] of var int:listaMaestreOre=[Maestra1:12,Maestra2:8,Maestra3:2,Maestra4:10,Maestra5:8];
+        array [1..NUM_MAESTRE] of var int:listaMaestreOre=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                    echo $_POST["nomeMaestra$i"].":".$_POST["oreMaestra$i"];
+                                    if ($i != $_SESSION["numeroMaestre"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>];
 
         array [1..NUM_MAESTRE] of var int:oreMaestraSoloLezione;
                                                             
-                                                            
+        %Attenzione che qui è limitato dal 5                                              
         array [1..NUM_MAESTRE,1..5] of var listaMaterieNomi:AssegnazioneMaterieMaestra=    array2d(1..NUM_MAESTRE,1..5,
                       [
-                            Italiano,Geografia,Empty,Empty,Empty,
-                            Matematica,Empty,Empty,Empty,Empty,
-                            Religione,Empty,Empty,Empty,Empty,
-                            Immagine,Inglese,Empty,Empty,Empty,
-                            Informatica,Musica,Empty,Empty,Empty,
+                            <?php
+                            for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                $contatore = 0;
+                                for ($j = 0; $contatore < 5 && $j<$_SESSION["numeroMaterie"]; $j++) {
+                                    if (isset($_POST["materia{$j}Maestra{$i}"])) {
+                                        echo $_SESSION["materia$j"].",";
+                                        $contatore++;
+                                    }
+                                }
+                                for ($j = $contatore; $j < 5; $j++) {
+                                    echo "Empty,";
+                                }
+                                echo "\n";
+                            }
+                            ?>
                       ]);
 
-        array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[Maestra1:1,Maestra2:1,Maestra3:0,Maestra4:1,Maestra5:1];
-        array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:1,Maestra5:0];
-        array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[Maestra1:2,Maestra2:1,Maestra3:2,Maestra4:2,Maestra5:5];
+        array [1..NUM_MAESTRE] of var int: listaMaestreMensa=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                    echo $_POST["nomeMaestra$i"].":";
+                                    if(!isset($_POST["Mensa$i"])){echo "0";} 
+                                    else{ echo "1";}
+                                    if ($i != $_SESSION["numeroMaestre"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>];
+        array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                    echo $_POST["nomeMaestra$i"].":";
+                                    if(!isset($_POST["TuttiGiorni$i"])){echo "0";} 
+                                    else{ echo "1";}
+                                    if ($i != $_SESSION["numeroMaestre"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>];
+        array [1..NUM_MAESTRE] of var int: listaMaestreGiornoCasa=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                    echo $_POST["nomeMaestra$i"].":".$_POST["giornoLibero$i"];
+                                    if ($i != $_SESSION["numeroMaestre"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>];
         array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:3,Maestra5:0];
 
 
