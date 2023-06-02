@@ -12,7 +12,7 @@
     <link href="assets/img/favicon.png" rel="icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-    <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="assets/css/mystyle.css">
 </head>
 
 <body>
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="testoQuadro">
-            <h2 class="titoloOrarioLezioni">OrarioLezioni</h2>
+            <h2 class="titoloOrarioLezioni">Orario lezioni <?php echo $_SESSION["nomeClasse"]; ?></h2>
             <table class="tableorari">
                 <tr>
                     <th class=" vuoto"></th>
@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="testoQuadro1">
-            <h2 class="titoloOrarioMensa">OrarioMensa</h2>
+            <h2 class="titoloOrarioMensa">Orario mensa</h2>
             <table class="tablemensa">
                 <tr>
                     <th>Lunedì</th>
@@ -113,10 +113,10 @@
 
     <script>
         var modelCode = `
-        int: NUM_MAT=8;
+        int: NUM_MAT=<?php echo $_SESSION["numeroMaterie"]; ?>;
         int: MAX_NUM_ORE_MAT=30;
 
-        int: NUM_MAESTRE=5;
+        int: NUM_MAESTRE=<?php echo $_SESSION["numeroMaestre"]; ?>
         int: MAX_NUM_ORE_MAESTRA=30;
 
         int: contatorePreferenza=0;
@@ -124,9 +124,32 @@
         enum giorni={Lunedi , Martedi , Mercoledi, Giovedi ,Venerdi};
 
         %%definizione del type MATERIA
-        enum listaMaterieNomi={Italiano, Matematica,Geografia ,Immagine,Religione,Inglese,Musica,Informatica,Empty};
-        array [1..NUM_MAT+1] of var 0..MAX_NUM_ORE_MAT:listaMaterieOre=[Italiano:6, Matematica:6,Geografia:4 ,Immagine:2,Religione:2,Inglese:4,Musica:2,Informatica:4,Empty:0];
-        array [1..NUM_MAT+1] of var 0..1:listaMateriePomePreff=[Italiano:0, Matematica:0,Geografia:0 ,Immagine:1,Religione:0,Inglese:0,Musica:1,Informatica:0,Empty:0];
+        enum listaMaterieNomi={<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaterie"]; $i++) {
+                                    echo $_SESSION["materia$i"];
+                                    if ($i != $_SESSION["numeroMaterie"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>,Empty};
+        array [1..NUM_MAT+1] of var 0..MAX_NUM_ORE_MAT:listaMaterieOre=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaterie"]; $i++) {
+                                    echo $_SESSION["materia$i"].":".$_SESSION["materiaOre$i"];
+                                    if ($i != $_SESSION["numeroMaterie"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>,Empty:0];
+        array [1..NUM_MAT+1] of var 0..1:listaMateriePomePreff=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaterie"]; $i++) {
+                                    echo $_SESSION["materia$i"].":";
+                                    if(!isset($_SESSION["materiaPome$i"])){echo "0";} 
+                                    else{ echo "1";}
+                                    if ($i != $_SESSION["numeroMaterie"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>,Empty:0];
 
 
         %definzione del type MAESTRA
