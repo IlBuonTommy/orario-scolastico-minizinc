@@ -221,7 +221,20 @@
                                     }
                                 }
                                 ?>];
-        array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[Maestra1:1,Maestra2:0,Maestra3:0,Maestra4:3,Maestra5:0];
+        array [1..NUM_MAESTRE] of var 0..3: listaMaestreMattinaOPomeriggioCasa=[<?php
+                                for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
+                                    if(isset($_POST["matt$i"])){
+                                        echo $_POST["nomeMaestra$i"].":1";
+                                    }else if(isset($_POST["pome$i"])){
+                                        echo $_POST["nomeMaestra$i"].":3";
+                                    }else{
+                                        echo $_POST["nomeMaestra$i"].":0";
+                                    }
+                                    if ($i != $_SESSION["numeroMaestre"] - 1) {
+                                        echo ",";
+                                    }
+                                }
+                                ?>];
 
 
 
