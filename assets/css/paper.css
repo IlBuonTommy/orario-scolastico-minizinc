@@ -230,6 +230,11 @@ body {
   transition: 150ms;
 }
 
+.deleteMateriaButton:hover {
+  background: rgba(206, 6, 6, 0.674);
+  transition: 150ms;
+}
+
 .next {
   background: rgba(255, 0, 0, 0.4);
   margin-left: 50%;
