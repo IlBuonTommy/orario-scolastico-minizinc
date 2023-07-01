@@ -206,8 +206,8 @@
         array [1..NUM_MAESTRE] of var int: listaMaestreOgniGiorno=[<?php
                                 for ($i = 0; $i < $_SESSION["numeroMaestre"]; $i++) {
                                     echo $_POST["nomeMaestra$i"].":";
-                                    if(!isset($_POST["TuttiGiorni$i"])){echo "0";} 
-                                    else{ echo "1";}
+                                    if(!isset($_POST["TuttiGiorni$i"])){echo "1";} 
+                                    else{ echo "0";}
                                     if ($i != $_SESSION["numeroMaestre"] - 1) {
                                         echo ",";
                                     }
