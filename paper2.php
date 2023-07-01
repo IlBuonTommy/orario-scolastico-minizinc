@@ -21,7 +21,7 @@
       <input name="passaggioSicuroFase3" id="passaggioSicuroFase3" type="hidden" value="2">
       <div class="paper">
         <div class="lines">
-          <div class="text" contenteditable spellcheck="false">
+          <div class="text" spellcheck="false">
             <h2 class=" titolo1">Orario</h2>
             <h2 class=" titolo2">Generator</h2>
 
@@ -38,7 +38,7 @@
 
       <div class="paper1">
         <div class="lines">
-          <div class="text1" contenteditable spellcheck="false">
+          <div class="text1" spellcheck="false">
             <b>Inserisci Le Maestre</b> <br>
             <div>
               <?php
@@ -64,7 +64,7 @@
                   echo ("Tutti i Giorni");
                   echo '<input type="checkbox" class="tuttiIGiorni" name="TuttiGiorni' . $j . '" onclick="tuttiGiorniClicked(this)" checked>';
 
-                  echo ("<div id='divMattPom" . $j . "' class='hidden'>");
+                  echo ("<div id='divMattPom" . $j . "'>");
                   echo ("Mat");
                   echo '<input type="checkbox" class="matt" name="matt' . $j . '">';
                   echo ("Pom");
