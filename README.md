@@ -19,4 +19,4 @@ Gli obbiettivi del sistema sono stati dati direttamente dall'istituto comprensiv
 * RELIGIONE da disponibilità solo per 2 giorni
 * MOTORIA MUSICA IMMAGINE INGLESE meglio che siano di POMERIGGIO
 ### L'interfaccia
-L'interfaccia consente all'utente 
+L'interfaccia consente all'utente di inserire tutti i dati necessari alla compilazione dell'orario in maniera corretta. Essa è implementata su 3 pagine, le prime due di inserimento e l'ultima di visualizzazione dell'orario generato.
