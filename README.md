@@ -1,6 +1,6 @@
 # Timetabling problem with minizinc
 Questo sistema web si pone l'obbiettivo di generare automaticamente l'orario settimanale di una classe di una scuola elementare usando Minizinc.
-![Pagina 1](/assets/img/Pag1.png?raw=true)
+![Pagina 1](/assets/img/Pag111.png?raw=true)
 ### Installazione
 Essendo un sistema web è necessario utilizzare un server web (come Apache) per poter navigare all'interno delle pagine, [Minizinc](https://github.com/MiniZinc/minizinc-js) verrà interrogato come API quindi non bisogna installare nessun'altra dipendenza.
 Per i sistemi Windows si consiglia l'utilizzo di [XAMPP](https://www.apachefriends.org/it/) con il solo modulo di Apache.
@@ -25,11 +25,11 @@ L'interfaccia consente all'utente di inserire tutti i dati necessari alla compil
 ![Pagina 1](/assets/img/Pag1.png?raw=true)
 Nella sezione di inserimento delle materie, oltre al monte ore settimanale della singola materia sulla specifica classe può essere aggiunta l’opzione di inserire la materia nello slot pomeridiano.
 Premendo su procedi, l’utente verrà portato nella seconda pagina dove dovrà inserire i dati degli insegnanti.
-![Pagina 1](/assets/img/Pag1.png?raw=true)
+![Pagina 1](/assets/img/Pag2.png?raw=true)
 2. Per ogni maestra si potrà inserire il nome, il monte ore settimanale del contratto, la preferenza per il giorno libero, la facoltà della maestra di fare presenza durante le due ore della mensa.
-![Pagina 1](/assets/img/Pag1.png?raw=true)
+![Pagina 1](/assets/img/Pag2.2.png?raw=true)
 Inoltre se la maestra lavora tutti i giorni è possibile selezionare se desidera avere il mattino o il pomeriggio libero nel giorno che ha selezionato.
 Una volta selezionate anche le materie che insegna ed aver compilato tutti i campi è possibile premere si procedi.
 3. Arrivati all’ultima pagina, i dati verranno passati tramite PHP allo script in javascript di MiniZinc che cercherà la soluzione ottimale al problema proponendola graficamente. 
-![Pagina 1](/assets/img/Pag1.png?raw=true)
+![Pagina 1](/assets/img/Pag3.png?raw=true)
 Da questa schermata è possibile osservare sul lato destro l’orario con le materie della classe, sul lato sinistro invece l’orario con i nominativi delle maestre che dovranno sorvegliare i ragazzi durante la pausa mensa.
